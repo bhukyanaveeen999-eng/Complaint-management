@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Complaint</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Track Your Complaint</h1>
+
+    <form method="POST">
+        <input type="email"
+               name="email"
+               placeholder="Enter Your Email"
+               required>
+        <button type="submit">Track</button>
+    </form>
+
+    {% if complaints is not none %}
+        {% if complaints %}
+            <table style="width:100%; margin-top:20px; border-collapse:collapse;">
+                <tr style="background:#2563eb; color:white;">
+                    <th style="padding:10px;">ID</th>
+                    <th style="padding:10px;">Category</th>
+                    <th style="padding:10px;">Status</th>
+                    <th style="padding:10px;">Date</th>
+                </tr>
+                {% for c in complaints %}
+                <tr style="text-align:center; border-bottom:1px solid #ddd; color:black;">
+                    <td style="padding:10px;">{{ c.id }}</td>
+                    <td style="padding:10px;">{{ c.category }}</td>
+                    <td style="padding:10px;">
+                        {% if c.status == 'Resolved' %}
+                            <span style="color:green; font-weight:bold;">✅ Resolved</span>
+                        {% else %}
+                            <span style="color:orange; font-weight:bold;">⏳ Pending</span>
+                        {% endif %}
+                    </td>
+                    <td style="padding:10px;">{{ c.date }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p style="text-align:center; margin-top:20px; color:red;">
+                ❌ No complaints found for this email!
+            </p>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+</body>
+</html>

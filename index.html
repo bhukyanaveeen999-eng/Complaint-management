@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <title>Submit a Complaint</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Submit a Complaint</h1>
+
+    {% if request.args.get('success') %}
+    <div style="
+        background:#16a34a;
+        color:white;
+        padding:12px;
+        border-radius:8px;
+        text-align:center;
+        margin-bottom:15px;
+    ">
+        ✅ Complaint submitted successfully!
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/submit">
+        <input type="text" name="name" placeholder="Enter Your Name" required>
+        <input type="email" name="email" placeholder="Enter Your Email" required>
+        <select name="category" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="Technical">Technical</option>
+            <option value="Billing">Billing</option>
+            <option value="Service">Service</option>
+            <option value="Other">Other</option>
+        </select>
+        <textarea name="complaint" placeholder="Describe your complaint..." rows="5" required></textarea>
+        <button type="submit">Submit Complaint</button>
+    </form>
+
+    <p style="text-align:center; margin-top:15px;">
+        <a href="/track" style="color:#2563eb;">🔍 Track your complaint status</a>
+    </p>
+</div>
+
+</body>
+</html>
